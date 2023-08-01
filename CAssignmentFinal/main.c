@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 struct Quiz {
     char question[1000];
@@ -22,6 +23,7 @@ int main() {
     int numberOfQuestions = 0;
     struct Quiz quiz[100];
     int userNumber;
+    
 //
     printf("1 - Face for the questoins\n2 - Rearrange the quizes\n");
     printf("Enter a number - ");
@@ -29,28 +31,38 @@ int main() {
     printf("\n\n------------------------------------------------\n\n");
     
     
-    char isZpressed[2];
+    char isZpressed[2]="\n";
     int n=0;
+    int numberOfTrues = 0;
     switch(userNumber){
         
         case 1:
             printf("for each answers use YES or NO\n");
             loadFile(quiz, &numberOfQuestions);
             char answerFormUser[50];
+            
             do{
                 printf("%s\n",quiz[n].question);
                 scanf("%s",answerFormUser);
                 if(strcmp(answerFormUser,quiz[n].answer) ==0 ){
                     printf("Your answer is correct\n");
+                    numberOfTrues++;
                 }else{
                     printf("your answer is wrong\n");
                 }
-                printf("\nEnter do you willing end the quiz therwise enter a any number to next question\n");
-                scanf("%s",isZpressed);
-                n++;
+                if(n<numberOfQuestions){
+                    printf("\nEnter do you willing end the quiz therwise enter a any number to next question\n");
+                    scanf("%s",isZpressed);
+                    n++;
+                    
+                }
             }while((strcmp(isZpressed,"Z")!=0) && (n<numberOfQuestions));
+            printf("------------------------------------");
             printf("quiz is done\n");
+            printf("\n%d answers are true out of %d\n",numberOfTrues,n);
+            printf("presenatage:%.1f%%\n",round((numberOfTrues/(float)n)*100));
             n=0;
+            numberOfTrues = 0;
             break;
         case 2:
             initialize(quiz, &numberOfQuestions);
