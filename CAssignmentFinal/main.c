@@ -49,6 +49,7 @@ int main() {
                 scanf("%s",isZpressed);
                 n++;
             }while((strcmp(isZpressed,"Z")!=0) && (n<numberOfQuestions));
+            printf("quiz is done\n");
             n=0;
             break;
         case 2:
